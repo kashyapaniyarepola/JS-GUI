@@ -5,6 +5,7 @@ body {
     flex-direction: column;
     height: 100vh;
     font-family: Arial, Helvetica, sans-serif;
+    background-image: url("file:///images/quarry.jpg");
 }
 
 input {
@@ -30,9 +31,15 @@ button {
     cursor: pointer;
 }
 
-#password {
-    font-size: 35px;
-    color: darkcyan;
+h1 {
+    font-size: 55px;
+    color: rgb(190, 64, 25);
+}
+
+p {
+    font-size: 25px;
+    color: rgb(10, 10, 10);
+    font-weight: 200;
 }
 
 .background {
