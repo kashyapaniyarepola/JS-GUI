@@ -12,7 +12,7 @@ const createWindow = () => {
         },
     });
 
-    win.loadFile("index.html");
+    win.loadFile("gui/index.html");
 };
 
 app.whenReady().then(createWindow);

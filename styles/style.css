@@ -1,4 +1,4 @@
-body {
+.main-body {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -19,7 +19,7 @@ input {
     padding-left: 10px;
 }
 
-button {
+.main-button {
     margin: 20px;
     width: 305px;
     height: 40px;
@@ -31,7 +31,7 @@ button {
     cursor: pointer;
 }
 
-h1 {
+.heading {
     font-size: 55px;
     color: rgb(190, 64, 25);
 }
@@ -40,9 +40,4 @@ p {
     font-size: 25px;
     color: rgb(10, 10, 10);
     font-weight: 200;
-}
-
-.background {
-    background: url('coffee-apple.jpg') no-repeat center center fixed;
-    background-size: cover;
 }
