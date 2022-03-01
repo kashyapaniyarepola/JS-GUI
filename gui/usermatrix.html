@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Quarry Model </title>
+    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+<p> Please fill your ranking values in yellow color cells, comparing relevant two criteria's </p>
+<div class="container">
+    <div class="row justify-content-md-center">
+        <table class="table table-bordered" id="matrix">
+            <tbody id="matrix_body">
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<script>
+    const criterias = ['', 'C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7']
+    const rankings = ['9.00', '8.00', '7.00', '6.00', '5.00', '4.00', '3.00', '2.00', '1.00', '0.50', '0.33', '0.25', '0.20', '0.17', '0.14', '0.13', '0.11'];
+
+    var table = $('#matrix_body');
+
+    const onChangeDropdown = (id)=> {
+        let value = $('#'+ id).val();
+        console.log('value changed', id, value)
+    };
+
+    const generateDropdown = (cellid)=> {
+        let id = `dropdown_${cellid}`;
+        return (`
+        <select id=${id} class="browser-default custom-select" onchange="onChangeDropdown(id)">
+          <option selected>select</option>
+          ${rankings.map(val => (`<option value=${val}>${val}</option>`))}
+       </select>
+`)
+    }
+    const generateTableRows = () => {
+        let rows = ``;
+        for(let i=0; i<8; i++){
+            let row = `<tr>`;
+            let cellid = '';
+            if (i==0){
+                for(let j=0; j<8; j++){
+                    if(j==0){
+                        row += `<td></td>`
+                    }else{
+                        row += `<th>${criterias[j]}</th>`
+                    }
+                }
+            }else{
+                for(let j=0; j<8; j++){
+                    if(j==0){
+                        row += `<th>${criterias[i]}</th>`
+                    }else{
+                        cellid = i.toString() +"_"+ j.toString();
+                        if(i == j){
+                            row += `<td id=${cellid} value = '1'>1</td>`
+                        }
+                        else if(i < j){
+                            row += `<td id=${cellid}></td>`
+                        }else{
+                            row += `<td id=${cellid}>${generateDropdown(cellid)}</td>`
+                        }
+                    }
+                }
+            }
+            row += `</tr>`;
+            rows += row;
+        }
+        return rows;
+    };
+    table.append(generateTableRows())
+</script>
+
+</body>
+</html>
