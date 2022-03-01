@@ -11,15 +11,15 @@ body {
     background-image: url("file:///images/quarry.jpg");
 }
 
-input {
-    width: 300px;
-    height: 40px;
+.main-input {
+    width: 100px;
+    height: 25px;
     border: none;
     border-radius: 7px;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: white;
-    font-size: 18px;
-    padding-left: 10px;
+    /* background-color: rgba(0, 0, 0, 0.7); */
+    /* color: white; */
+    /* font-size: 18px; */
+    /* padding-left: 10px; */
 }
 
 .main-button {
