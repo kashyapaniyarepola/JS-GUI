@@ -9,6 +9,7 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.3.2/math.js"></script>
 </head>
 
 <body>
@@ -27,12 +28,20 @@
 <script>
     const criterias = ['', 'C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7']
     const rankings = ['9.00', '8.00', '7.00', '6.00', '5.00', '4.00', '3.00', '2.00', '1.00', '0.50', '0.33', '0.25', '0.20', '0.17', '0.14', '0.13', '0.11'];
-
+    let matrix = math.identity(7);
     var table = $('#matrix_body');
 
     const onChangeDropdown = (id)=> {
         let value = $('#'+ id).val();
-        console.log('value changed', id, value)
+        console.log('value changed', id.split('_'), value)
+        let indices = id.split('_').splice(1,3);
+        indices = indices.map(function (x) {
+            return parseInt(x)-1;
+        });
+        matrix = math.subset(matrix, math.index(indices[0], indices[1]), parseFloat(value))
+        console.log(matrix)
+        matrix = math.subset(matrix, math.index(indices[1], indices[0]), Math.round(1/parseFloat(value) * 100) / 100)
+        console.log(matrix)
     };
 
     const generateDropdown = (cellid)=> {
