@@ -26,10 +26,18 @@
 
 
 <script>
-    const criterias = ['', 'C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7']
+    const criterias = ['', 'C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7'];
+    const criteria_amount = 4;
     const rankings = ['9.00', '8.00', '7.00', '6.00', '5.00', '4.00', '3.00', '2.00', '1.00', '0.50', '0.33', '0.25', '0.20', '0.17', '0.14', '0.13', '0.11'];
-    let matrix = math.identity(7);
+    let matrix = math.identity(criteria_amount);
     var table = $('#matrix_body');
+
+    const calculateEigenVector = (matrix)=> {
+        for(let i =0; i < criteria_amount + 1; i++){
+            const col = math.column(matrix, i)
+            
+        }
+    };
 
     const onChangeDropdown = (id)=> {
         let value = $('#'+ id).val();
@@ -39,9 +47,19 @@
             return parseInt(x)-1;
         });
         matrix = math.subset(matrix, math.index(indices[0], indices[1]), parseFloat(value))
-        console.log(matrix)
         matrix = math.subset(matrix, math.index(indices[1], indices[0]), Math.round(1/parseFloat(value) * 100) / 100)
-        console.log(matrix)
+        const flat = math.flatten(matrix)._data
+        console.log(flat)
+        // console.log(matrix)
+        if(flat.indexOf(0) === -1){
+            console.log('NO ZEROES')
+        //    compute eigen vector
+            const eigen =  math.eigs(matrix)
+            console.log(eigen.values)
+        }else{
+            console.log('zeros exist')
+        }
+
     };
 
     const generateDropdown = (cellid)=> {
@@ -55,11 +73,12 @@
     }
     const generateTableRows = () => {
         let rows = ``;
-        for(let i=0; i<8; i++){
+        const no_criterias = criteria_amount + 1
+        for(let i=0; i<no_criterias; i++){
             let row = `<tr>`;
             let cellid = '';
             if (i==0){
-                for(let j=0; j<8; j++){
+                for(let j=0; j<no_criterias; j++){
                     if(j==0){
                         row += `<td></td>`
                     }else{
@@ -67,7 +86,7 @@
                     }
                 }
             }else{
-                for(let j=0; j<8; j++){
+                for(let j=0; j<no_criterias; j++){
                     if(j==0){
                         row += `<th>${criterias[i]}</th>`
                     }else{
