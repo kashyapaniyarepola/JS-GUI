@@ -27,7 +27,7 @@
 <div class="container" style="margin-top:8px;">
     <div class="row justify-content-md-center">
         <a href="criteria.html" class="col-md-2 btn btn-primary" style=" margin:4px" role="button" type="button">Back</a>
-        <a href="criteriaweight.html" class="col-md-2 btn btn-primary" style="margin:4px" role="button" type="button">Next</a>
+        <a id="next_button" href="criteriaweight.html" class="col-md-2 btn btn-primary disabled" style="margin:4px" role="button" type="button" aria-disabled="true">Next</a>
     </div>
 </div>
 
@@ -36,24 +36,29 @@
     const criterias = ['', 'C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7'];
     const criteria_amount = 4;
     const rankings = ['9.00', '8.00', '7.00', '6.00', '5.00', '4.00', '3.00', '2.00', '1.00', '0.50', '0.33', '0.25', '0.20', '0.17', '0.14', '0.13', '0.11'];
+    const ri = [0,0,0.58,0.9,1.12,1.24,1.32,1.41,1.45,1.49]
     let matrix = math.identity(criteria_amount);
+    let lamda_max = 0
+
     var table = $('#matrix_body');
 
     const calculateEigenVector = (matrix)=> {
+        let normalized_matrix = matrix;
         const eigen_vector = []
         for(let i =0; i < criteria_amount; i++){
             const col = math.column(matrix, i);
             const col_sum = math.sum(col);
             const new_col = math.dotMultiply(col, 1/col_sum);
-            matrix = math.subset(matrix, math.index(math.range(0,criteria_amount),i), new_col)
+            normalized_matrix = math.subset(normalized_matrix, math.index(math.range(0,criteria_amount),i), new_col)
         }
         for(let i =0; i < criteria_amount; i++){
-            const row = math.row(matrix, i);
+            const row = math.row(normalized_matrix, i);
             const row_sum = math.sum(row);
             eigen_vector.push(row_sum/criteria_amount)
         }
-        console.log('FINAL MATRIX', matrix)
+        console.log('FINAL MATRIX', matrix, normalized_matrix)
         console.log('EIGEN VECTOR', eigen_vector)
+        return eigen_vector
     };
 
     const onChangeDropdown = (id)=> {
@@ -69,7 +74,21 @@
         // console.log(matrix)
         if(flat.indexOf(0) === -1){
             console.log('NO ZEROES')
-            calculateEigenVector(matrix)
+            const eigen_vector = calculateEigenVector(matrix)
+            const eigen_matrix = math.matrix(eigen_vector)
+            const ax = math.multiply(matrix,eigen_matrix)._data
+            const lamdas = []
+            for(let i=0; i<eigen_vector.length; i++ ){
+                lamdas.push(ax[i]/eigen_vector[i])
+            }
+            lamda_max = Math.max(...lamdas)
+            const ci = (lamda_max - criteria_amount)/(criteria_amount - 1)
+            const cr = ci / ri[criteria_amount-1]
+            if(cr < 0.1){
+                $('#next_button').attr("class","col-md-2 btn btn-primary").attr("aria-disabled","true");
+            }
+            // alert(`CR VALUE ${cr}`)
+            // console.log('CR CALCULATED', cr, ci, ri[criteria_amount-1])
         }else{
             console.log('zeros exist')
         }
