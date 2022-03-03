@@ -12,7 +12,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.3.2/math.js"></script>
 </head>
 <body>
-    
+
     <h2>
         Criteria Weightages
     </h2>
@@ -23,7 +23,7 @@
                 <div class="card">
                 <div class="card-body">
                     <form class="justify-content-md-center">
-                        <div id="card_body">   
+                        <div id="card_body">
                         </div>
                     </form>
                 </div>
@@ -42,21 +42,21 @@
 
     <script>
         const criterias = ['C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7'];
-        const weightages = ['1.1','1.2','1.3','1.4','1.5','1.6''1.7'];
+        const weightages = ['1.1','1.2','1.3','1.4','1.5','1.6','1.7'];
         const no_criterias = 7;
         var card = $('#card_body');
 
         const generateCardBody = () => {
             let body = ``;
             for(let i=0; i<no_criterias; i++){
-                let row = `<div class='row' style='margin:8px'>`;
-                row+=`<div class='col-sm'>`;
-                row+=`<input type='text' class='form-control' value=${criterias[i]} disabled='disabled'>`;
-                row+=`</div>`;
-                row+=`<div class='col-sm'>`;
-                row+=`<input type='text' class='form-control' value=${weightages[i]} disabled='disabled'>`;
-                row+=`</div>`;
-
+                let row = `<div class='row' style='margin:8px'>
+                            <div class='col-sm'>
+                                <input type='text' class='form-control' value=${criterias[i]} disabled='disabled'>
+                            </div>
+                            <div class='col-sm'>
+                                <input type='text' class='form-control' value=${weightages[i]} disabled='disabled'>
+                            </div>
+                            </div>`;
                 body+=row;
             }
             return body;
@@ -66,6 +66,6 @@
 
     </script>
 
-    
+
 </body>
 </html>
