@@ -70,10 +70,8 @@
         matrix = math.subset(matrix, math.index(indices[0], indices[1]), parseFloat(value))
         matrix = math.subset(matrix, math.index(indices[1], indices[0]), Math.round(1/parseFloat(value) * 100) / 100)
         const flat = math.flatten(matrix)._data
-        console.log(flat)
         // console.log(matrix)
         if(flat.indexOf(0) === -1){
-            console.log('NO ZEROES')
             const eigen_vector = calculateEigenVector(matrix)
             const eigen_matrix = math.matrix(eigen_vector)
             const ax = math.multiply(matrix,eigen_matrix)._data
@@ -85,7 +83,7 @@
             const ci = (lamda_max - criteria_amount)/(criteria_amount - 1)
             const cr = ci / ri[criteria_amount-1]
             if(cr < 0.1){
-                $('#next_button').attr("class","col-md-2 btn btn-primary").attr("aria-disabled","true");
+                $('#next_button').attr("class","col-md-2 btn btn-primary").attr("aria-disabled","true").attr("href",`criteriaweight.html?weights=${eigen_vector.map(function(each_element){return Number(each_element.toFixed(2))}).join('-')}`);
             }
             // alert(`CR VALUE ${cr}`)
             // console.log('CR CALCULATED', cr, ci, ri[criteria_amount-1])
