@@ -23,14 +23,15 @@
                 <div class="card">
                 <div class="card-body">
                     <form class="justify-content-md-center">
-                        <dev id="card_body">   
-                        </dev>
+                        <div id="card_body">   
+                        </div>
                     </form>
                 </div>
                 </div>
             </div>
         </div>
     </div>
+
 
     <div class="container" style="margin-top:8px;">
         <div class="row justify-content-md-center">
@@ -48,7 +49,7 @@
         const generateCardBody = () => {
             let body = ``;
             for(let i=0; i<no_criterias; i++){
-                let row = `<dev class='row' style='margin:8px'>`;
+                let row = `<div class='row' style='margin:8px'>`;
                 row+=`<div class='col-sm'>`;
                 row+=`<input type='text' class='form-control' value=${criterias[i]} disabled='disabled'>`;
                 row+=`</div>`;
@@ -61,7 +62,7 @@
             return body;
         };
 
-        $('#card_body').html(generateCardBody())
+        card.append(generateCardBody());
 
     </script>
 
