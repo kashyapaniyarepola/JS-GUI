@@ -11,7 +11,13 @@ body {
     background-image: url("file:///images/quarry.jpg");
     height: 100vh;
 }
+.alternative-button-visited{
+    background-color: aqua;
+}
 
+.alternative-button{
+    background-color: #ff7617;
+}
 .main-input {
     width: 100px;
     height: 25px;
