@@ -45,6 +45,8 @@
     }
 
     const generateCardBody = () => {
+        let alternative_values = JSON.parse(localStorage.getItem("ALTERNATIVE_VALUES"));
+        if
         let body = ``;
         for (let i = 0; i < no_criterias; i++) {
             let row = `<div class="card" style="width:500px">
