@@ -83,7 +83,7 @@
             const ci = (lamda_max - criteria_amount)/(criteria_amount - 1)
             const cr = ci / ri[criteria_amount-1]
             if(cr < 0.1){
-                $('#next_button').attr("class","col-md-2 btn btn-primary").attr("aria-disabled","true").attr("href",`criteriaweight.html?weights=${eigen_vector.map(function(each_element){return Number(each_element.toFixed(2))}).join('-')}`);
+                $('#next_button').attr("class","col-md-2 btn btn-primary").attr("aria-disabled","false").attr("href",`criteriaweight.html?weights=${eigen_vector.map(function(each_element){return Number(each_element.toFixed(2))}).join('-')}`);
             }
             // alert(`CR VALUE ${cr}`)
             // console.log('CR CALCULATED', cr, ci, ri[criteria_amount-1])
