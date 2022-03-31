@@ -46,6 +46,7 @@
         const urlParams = new URLSearchParams(window.location.search);
         const myParam = urlParams.get('weights').split('-');
         //todo: need to clear localStorage Item
+        localStorage.setItem("WEIGHTS", JSON.stringify(myParam));
         localStorage.removeItem("ALTERNATIVE_VALUES");
         const no_criterias = 7;
         var card = $('#card_body');
