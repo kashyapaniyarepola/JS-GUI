@@ -69,7 +69,7 @@
 
         let body = ``;
         for (let i = 0; i < no_criterias; i++) {
-            let visited = (getNotNull(alternative_values[i]) == alternatives[i].length)
+            let visited = (getNotNull(alternative_values[i].values) == alternatives[i].length)
             let row;
             if(visited){
                  row = `<div class="card" style="width:500px">

@@ -35,14 +35,14 @@
 
 <div class="container" style="margin-top:8px;">
     <div class="row justify-content-md-center">
-        <button class="col-md-2 btn btn-primary" style="margin:4px" role="button" type="button" onclick="goToNext()">Next</button>
+        <button id="next_button" class="col-md-2 btn btn-primary" style="margin:4px" role="button" type="button" onclick="goToNext()" disabled="true">Next</button>
     </div>
 </div>
 
 <script>
     const urlParams = new URLSearchParams(window.location.search);
     const index = parseInt(urlParams.get('index'));
-    const rankings = ['5.00', '4.00', '3.00', '2.00', '1.00'];
+    const rankings = ['5', '4', '3', '2', '1'];
     const goToNext = ()=> {
         window.location = "criteria-alternatives.html"
     };
@@ -58,15 +58,16 @@
     };
 
     let alternative_values = JSON.parse(localStorage.getItem("ALTERNATIVE_VALUES"));
+    console.log('INIT',alternative_values)
     if(!alternative_values){
         alternative_values = {
-            0: [],
-            1: [],
-            2: [],
-            3: [],
-            4: [],
-            5: [],
-            6: [],
+            0: {values:[], selectedAlternativeIndex:null},
+            1: {values:[], selectedAlternativeIndex:null},
+            2: {values:[], selectedAlternativeIndex:null},
+            3: {values:[], selectedAlternativeIndex:null},
+            4: {values:[], selectedAlternativeIndex:null},
+            5: {values:[], selectedAlternativeIndex:null},
+            6: {values:[], selectedAlternativeIndex:null},
         };
     }
 
@@ -81,15 +82,43 @@
                             <div class='col-sm'>
                                 ${generateDropdown(i)}
                             </div>
-                            </div>`;
+                            <div>
+                            <input class="form-check-input" type="radio" name="exampleRadios" id=${i+ 'sds'} value=${i} onchange="onChangeRadio(${i})">
+                            </div>
+                         </div>`;
             body+=row;
         }
         return body;
     };
 
+    const checkNext = () => {
+        if(getNotNull(alternative_values[index].values) == alternatives[index].length &&  alternative_values[index].selectedAlternativeIndex != null){
+            console.log('FILLED');
+            $('#next_button').removeAttr("disabled")
+        }
+    }
+
+    const getNotNull = (array)=> {
+        let c= 0;
+        array.forEach(item => {
+            if(item){
+                c++
+            }
+        });
+        return c
+    };
+
+    const onChangeRadio = (i)=> {
+        alternative_values[index].selectedAlternativeIndex = i;
+        checkNext()
+        localStorage.setItem("ALTERNATIVE_VALUES", JSON.stringify(alternative_values));
+        console.log(alternative_values)
+    };
+
     const onChangeDropdown = (id, cellId)=> {
         let value = $('#'+ id).val();
-        alternative_values[index][cellId] = parseInt(value);
+        alternative_values[index].values[cellId] = parseInt(value);
+        checkNext()
         localStorage.setItem("ALTERNATIVE_VALUES", JSON.stringify(alternative_values));
         console.log(value,cellId, alternative_values);
     };

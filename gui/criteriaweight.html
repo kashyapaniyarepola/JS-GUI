@@ -45,7 +45,8 @@
         const weightages = ['1.1','1.2','1.3','1.4','1.5','1.6','1.7'];
         const urlParams = new URLSearchParams(window.location.search);
         const myParam = urlParams.get('weights').split('-');
-        
+        //todo: need to clear localStorage Item
+        localStorage.removeItem("ALTERNATIVE_VALUES");
         const no_criterias = 7;
         var card = $('#card_body');
 
@@ -53,12 +54,12 @@
             let body = ``;
             for(let i=0; i<no_criterias; i++){
                 let row = `<div class='row' style='margin:8px'>
-                            <div class='col-sm'>
-                                <input type='text' class='form-control' value=${criterias[i]} disabled='disabled'>
-                            </div>
-                            <div class='col-sm'>
-                                <input type='text' class='form-control' value=${myParam[i]} disabled='disabled'>
-                            </div>
+                                <div class='col-sm'>
+                                    <input type='text' class='form-control' value=${criterias[i]} disabled='disabled'>
+                                </div>
+                                <div class='col-sm'>
+                                    <input type='text' class='form-control' value=${myParam[i]} disabled='disabled'>
+                                </div>
                             </div>`;
                 body+=row;
             }
