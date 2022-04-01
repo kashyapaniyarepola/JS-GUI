@@ -11,15 +11,81 @@
 <body>
     
     <h3> Previous Results</h3>
-    <a href="qresult.html" class="main-button btn btn-outline-dark" style="margin:4px" role="button" type="button">Quarry 01</a>
-    <a href="qresult.html" class="main-button btn btn-outline-dark" style="margin:4px" role="button" type="button">Quarry 02</a>
+    
+    <div id="results_section"></div>
     
     <div class="container">
         <div class="row justify-content-md-center">
             <a href="index.html" class="col-md-2 btn btn-primary" style="margin:4px" role="button" type="button">Back</a>
-            <a href="#" class="col-md-2 btn btn-primary" style="margin:4px" role="button" type="button">Clear Data</a>
+            <a href="#" class="col-md-2 btn btn-primary" style="margin:4px" role="button" type="button" onclick="clearResult()">Clear Data</a>
         </div>
     </div>
     
+
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+                integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+                crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+                integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+                crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+                integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+                crossorigin="anonymous"></script>
+
+    <script>
+        var card = $('#results_section');
+
+        function goResults(index){
+            window.location = "qresult.html?index=" + index.toString();
+        }
+
+        const generateCardBody = () => {
+            let quarry_results = JSON.parse(localStorage.getItem("QUARRY_RESULTS"));
+            //let count = Object.keys(quarry_results).length;
+
+            let body = ``;
+            if(!quarry_results){
+                body = `<div>
+                    <h4 class="font-italic" style="color:red;"> Results not found </h4>
+                </div>`;
+            } else{
+                let count = Object.keys(quarry_results).length;
+                for (let i = 0; i < count; i++) {
+                    let row;
+                    let name =  quarry_results[i].info[0]
+                    let rating = quarry_results[i].info[1]
+                    row = `<div class="" style="margin:8px">
+                                <div class="" id="headingTwo">
+                                    <h5 class="">
+                                        <button class="main-button btn btn-outline-dark" onClick="goResults(${i})">
+                                            Rating = ${rating}
+                                        
+                                        </button>
+                                    </h5>
+                                </div>
+                            </div>`;
+                    
+                    body += row
+                }
+            
+            }
+            return body;
+            
+        }
+        card.append(generateCardBody());
+    
+
+        const clearResult = ()=> {
+            localStorage.removeItem("QUARRY_RESULTS");
+            localStorage.removeItem("INFO_ALTERNATIVES");
+            localStorage.removeItem("INFO_WEIGHTS");
+            
+            window.location.reload();
+            //window.location = "index.html"
+        };
+    
+    </script>
+
 </body>
 </html>
