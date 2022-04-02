@@ -13,11 +13,23 @@ body {
 }
 
 .alternative-button-visited {
-    background-color: aqua;
+    width: 80%;
+    margin-left: 10%;
+    background-color: mediumseagreen;
+}
+
+.green-text{
+    color: mediumseagreen;
+}
+
+.red-text{
+    color: mediumvioletred;
 }
 
 .alternative-button {
-    background-color: #ff7617;
+    width: 80%;
+    margin-left: 10%;
+    background-color: lightskyblue;
 }
 
 .main-input {

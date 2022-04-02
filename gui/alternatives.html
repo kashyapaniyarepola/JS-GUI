@@ -14,8 +14,10 @@
 <body>
 
 <h2>
-    Criteria Alternatives
+    Please assign values and select related alternative
 </h2>
+
+<h5 class="mt-2 mb-2" id="guideline" style="width: 80%;"> </h5>
 
 <div class="container" style="margin-top:8px;">
     <div class="row justify-content-md-center">
@@ -42,21 +44,29 @@
 <script>
     const urlParams = new URLSearchParams(window.location.search);
     const index = parseInt(urlParams.get('index'));
-    const rankings = ['5', '4', '3', '2', '1'];
+    const rankings = ['5   Very high', '4   High', '3   Moderate', '2   Low', '1    Very low'];
     const goToNext = ()=> {
         window.location = "criteria-alternatives.html"
     };
     var card = $('#card_body');
     const alternatives = {
-        0: ["Alternative","Alternative","Alternative"],
-        1: ["Alternative","Alternative","Alternative"],
-        2: ["Alternative","Alternative","Alternative"],
-        3: ["Alternative","Alternative","Alternative"],
-        4: ["Alternative","Alternative","Alternative"],
+        0: [`Biotite gneiss`,"Migmatitic gneiss and migmatite","Hornblende biotite gneiss", "Granitic gneiss", "Charnockitic gneiss"],
+        1: ["Less than 100m       Very close","100m - 250m       Close","100m - 250m       Intermediate", "500m - 1000m       Fairly far away", "More than 1000m       Far away"],
+        2: ["Less than 100m       Very close","100m - 250m       Close","100m - 250m       Intermediate", "500m - 1000m       Fairly far away", "More than 1000m       Far away"],
+        3: ["Less than 100m       Very close","100m - 250m       Close","100m - 250m       Intermediate", "500m - 1000m       Fairly far away", "More than 1000m       Far away"],
+        4: ["Less than 100m       Very close","100m - 250m       Close","100m - 250m       Intermediate", "500m - 1000m       Fairly far away", "More than 1000m       Far away"],
         // 5: ["Alternative","Alternative","Alternative"],
         // 6: ["Alternative","Alternative","Alternative"],
     };
-
+    const guidelines = {
+        0: "Not all rock types can be used for every purpose. Some flaky soft and friable rocks cannot be used as aggregates . Mostly it depends on the mineralogical composition of the rock. Most of metamorphic rocks are very hard and strong they suitable for construction purposes.",
+        1: "Community safety is a sensitive issue showing strong influence on quarry site suitability. The farther away from the nearest living area is better to prevent or minimize flying rocks damage & ground vibration.",
+        2: "Lakes and streams are more susceptible to pollution as runoff from quarry sites flow very rapidly into them. Thus, a safe distance to water bodies needs to  be maintained from quarry sites. The greater the distance in this range the better. It is also an advantage to have a suitable distance to the water sources to get the required water supply as well",
+        3: "Close proximity of road to the quarry site may result into dangers of fly rocks due to blasting and air pollution. Roads at far distance may result additional project cost due to development of new road and increased transportation costs.",
+        4: "Close proximity of cultivated lands to the quarry site may result in adverse impacts due to change of water bodies and dust conditions can also affect crops.  It is advisable to stay away from such cultivation.",
+        // 5: ["Alternative","Alternative","Alternative"],
+        // 6: ["Alternative","Alternative","Alternative"],
+    };
     let alternative_values = JSON.parse(localStorage.getItem("ALTERNATIVE_VALUES"));
     console.log('INIT',alternative_values)
     if(!alternative_values){
@@ -72,12 +82,13 @@
     }
 
     const selectedAlternatives = alternatives[index];
+    const selectedGuideline = guidelines[index];
     const generateCardBody = () => {
         let body = ``;
         for(let i=0; i<selectedAlternatives.length; i++){
             let row = `<div class='row' style='margin:8px'>
                             <div class='col-sm'>
-                                <input type='text' class='form-control'  value=${selectedAlternatives[i]} disabled='disabled'>
+                                <input type='text' class='form-control'  value='${selectedAlternatives[i]}' disabled='disabled'>
                             </div>
                             <div class='col-sm'>
                                 ${generateDropdown(i)}
@@ -110,6 +121,7 @@
 
     const onChangeRadio = (i)=> {
         alternative_values[index].selectedAlternativeIndex = i;
+        alternative_values[index].selectedAlternativeName = selectedAlternatives[i];
         checkNext()
         localStorage.setItem("ALTERNATIVE_VALUES", JSON.stringify(alternative_values));
         console.log(alternative_values)
@@ -132,7 +144,8 @@
           ${rankings.map(val => (`<option value=${val}>${val}</option>`))}
        </select>
 `)
-    }
+    };
+    $("#guideline").text(selectedGuideline);
     card.append(generateCardBody());
 </script>
 

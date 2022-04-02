@@ -23,7 +23,7 @@
         </table>
     </div>
 </div>
-
+<h4 id="condition_check" class="red-text"> </h4>
 <div class="container" style="margin-top:8px;">
     <div class="row justify-content-md-center">
         <a href="criteria.html" class="col-md-2 btn btn-primary" style=" margin:4px" role="button" type="button">Back</a>
@@ -33,7 +33,7 @@
 
 
 <script>
-    const criterias = ['', 'Rock Quality', 'Distance to Residence', 'Distance to Water bodies', 'Distance to roads', 'Distance to Cultivated lands', 'C6', 'C7'];
+    const criterias = ['', 'Rock Type', 'Distance to Residence', 'Distance to Water bodies', 'Distance to roads', 'Distance to Cultivated lands', 'C6', 'C7'];
     const criteria_amount = 5;
     const rankings = ['9.00 - Exremely more important', '8.00', '7.00 - Very strong more importance', '6.00', '5.00 - Strongly more important', '4.00', '3.00 - Moderately more important', '2.00', '1.00 - Equal important', '0.50', '0.33 - Moderately less important', '0.25', '0.20 - Strongly less important', '0.17', '0.14 - Very Strongly less important', '0.13', '0.11 - Exremely less important'];
     const ri = [0,0,0.58,0.9,1.12,1.24,1.32,1.41,1.45,1.49]
@@ -84,6 +84,10 @@
             const cr = ci / ri[criteria_amount-1]
             if(cr < 0.1){
                 $('#next_button').attr("class","col-md-2 btn btn-primary").attr("aria-disabled","false").attr("href",`criteriaweight.html?weights=${eigen_vector.map(function(each_element){return Number(each_element.toFixed(2))}).join('-')}`);
+                $('#condition_check').attr("class","green-text").text('Consistency Ratio value < 0.1 your judgements are consistent, and you can continue')
+            }else{
+                $('#next_button').attr("class","col-md-2 btn btn-primary disabled").attr("aria-disabled","true")
+                $('#condition_check').attr("class","red-text").text('Consistency Ratio value >0.1 your judgements are not consistent. Please assign your ranking values again')
             }
             // alert(`CR VALUE ${cr}`)
             // console.log('CR CALCULATED', cr, ci, ri[criteria_amount-1])
