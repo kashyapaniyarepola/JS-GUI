@@ -89,7 +89,7 @@
                 const count = 5;
                 for (let i=0; i<count; i++) {
                     let selected_value_index = alternative_values[i].selectedAlternativeIndex
-                    //alter_names.push(alternative_values[i].selectedAlternativeName)
+                    alter_names.push(alternative_values[i].selectedAlternativeName)
                     selected_alter_index_list.push(selected_value_index);
                     let selected_value = alternative_values[i].values[selected_value_index]
                     selcted_alter_list.push(selected_value);
@@ -111,12 +111,12 @@
                 console.log('INIT_ALTER',info_alter);
                 if(!info_alter){
                     info_alter = {
-                        0: {index:selected_alter_index_list, values: selcted_alter_list},
+                        0: {index:selected_alter_index_list, values: selcted_alter_list, names: alter_names},
                     }
                 } else {
                     let d = Object.keys(info_alter).length;
                     let al = {
-                        index:selected_alter_index_list, values: selcted_alter_list,
+                        index:selected_alter_index_list, values: selcted_alter_list, names: alter_names
                     }
                     info_alter[d] = al;
                 }
