@@ -18,11 +18,11 @@ body {
     background-color: mediumseagreen;
 }
 
-.green-text{
+.green-text {
     color: mediumseagreen;
 }
 
-.red-text{
+.red-text {
     color: mediumvioletred;
 }
 
@@ -45,7 +45,7 @@ body {
 
 .main-button {
     margin: 20px;
-    width: 305px;
+    width: 335px;
     height: 40px;
     border: none;
     border-radius: 7px;
