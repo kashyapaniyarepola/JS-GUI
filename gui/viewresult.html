@@ -12,9 +12,6 @@
     
     <h3> Previous Results</h3>
     
-    <div>
-        <h5 class="font-italic" style="color:red;"> *Highest rated value outlined in red color </h5>
-    </div>
 
     <div id="results_section"></div>
     
@@ -54,6 +51,9 @@
                     <h4 class="font-italic" style="color:red;"> Results not found </h4>
                 </div>`;
             } else{
+                body += `<div>
+                    <h5 class="font-italic" style="color:red;"> *The maximum rating value was highlighted </h5>
+                </div>`;
                 let count = Object.keys(quarry_results).length;
                 rating_list = []
                 for (let j = 0; j < count;j++) {
@@ -67,7 +67,7 @@
                     let rating = quarry_results[i].info[1]
                     let class_style = "main-button btn btn-outline-dark";
                     if (rating == max_val){
-                        class_style = "main-button btn btn-outline-danger";
+                        class_style = "main-button btn btn-success";
                     }
                     row = `<div class="" style="margin:8px">
                                 <div class="" id="headingTwo">

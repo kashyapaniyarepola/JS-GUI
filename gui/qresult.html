@@ -10,7 +10,7 @@
 </head>
 <body>
     
-    <h1> Selected Quarry Details Goes Here</h1>
+    <h1> Summery Sheet </h1>
 
     <form class="col-sm-6">
         <div class="form-group" style="margin-top:8px;">
@@ -45,7 +45,6 @@
                 <div class="card text-center">
                 <div class="card-body">
                     <form class="justify-content-md-center">
-                        <h5 class="card-title">Criteria Weights</h5>
                         <div id="card_body">
                         </div>
                     </form>
@@ -76,7 +75,7 @@
 
         const no_criterias = 5;
         var card = $('#card_body');
-        const criterias = ['C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7'];
+        const criterias = ["C1 - Rock Quality", 'C2 - Distance to Residence', 'C3 - Distance to Water bodies', 'C4 - Distance to roads', 'C5 - Distance to Cultivated lands', 'C6', 'C7'];
 
         $(document).ready(function() {
             const urlParams = new URLSearchParams(window.location.search);
@@ -98,23 +97,45 @@
             let cd = Object.keys(info_weight).length;
             let weights = info_weight[index].values
 
+            let alter_values_list = JSON.parse(localStorage.getItem("INFO_ALTERNATIVES"));
+            let alter_values = alter_values_list[index].values
+
+
             let body = ``;
+            body+=`<table class="table">
+                            <thead>
+                                <tr class="table-active">
+                                    <th scope="col">Criteria</th>
+                                    <th scope="col">Weights</th>
+                                    <th scope="col">Selected alternative</th>
+                                    <th scope="col">Alternative Value</th>
+                                </tr>
+                            </thead>
+                        <tbody>`
             for(let i=0; i<no_criterias; i++){
-                let row = `<div class='row' style='margin:8px'>
-                                <div class='col-sm'>
-                                    <input type='text' class='form-control' value=${criterias[i]} disabled='disabled'>
-                                </div>
-                                <div class='col-sm'>
-                                    <input type='text' class='form-control' value=${weights[i]} disabled='disabled'>
-                                </div>
-                            </div>`;
+                let row = `<tr>
+                            <th scope="row">${criterias[i]}</th>
+                            <td>${weights[i]}</td>
+                            <td>name</td>
+                            <td>${alter_values[i]}</td>
+                        </tr>`;
+                //let row = `<div class='row' style='margin:8px'>
+                        //        <div class='col-sm'>
+                        //            <input type='text' class='form-control' value="${criterias[i]}" disabled='disabled'>
+                        //        </div>
+                         //       <div class='col-sm'>
+                        //            <input type='text' class='form-control' value=${weights[i]} disabled='disabled'>
+                        //        </div>
+                       //     </div>`;
                 body+=row;
             }
+            body +=`</tbody>
+                </table>`
             return body;
         };
 
         card.append(generateCardBody());
-
+        //<h5 class="card-title">Criteria Weights</h5>
     </script>
     
 </body>

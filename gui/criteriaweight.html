@@ -41,7 +41,7 @@
     </div>
 
     <script>
-        const criterias = ['C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7'];
+        const criterias = ["C1 - Rock Quality", 'C2 - istance to Residence', 'C3 - Distance to Water bodies', 'C4 - Distance to roads', 'C5 - Distance to Cultivated lands', 'C6', 'C7'];
         const weightages = ['1.1','1.2','1.3','1.4','1.5','1.6','1.7'];
         const urlParams = new URLSearchParams(window.location.search);
         const myParam = urlParams.get('weights').split('-');
@@ -56,7 +56,7 @@
             for(let i=0; i<no_criterias; i++){
                 let row = `<div class='row' style='margin:8px'>
                                 <div class='col-sm'>
-                                    <input type='text' class='form-control' value=${criterias[i]} disabled='disabled'>
+                                    <input type='text' class='form-control' value="${criterias[i]}" disabled='disabled'>
                                 </div>
                                 <div class='col-sm'>
                                     <input type='text' class='form-control' value=${myParam[i]} disabled='disabled'>

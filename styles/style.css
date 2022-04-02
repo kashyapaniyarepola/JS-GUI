@@ -8,16 +8,18 @@ body {
 }
 
 .main-body {
-    background-image: url("file:///images/quarry.jpg");
+    background-image: url("file:///images/background.jpg");
     height: 100vh;
 }
-.alternative-button-visited{
+
+.alternative-button-visited {
     background-color: aqua;
 }
 
-.alternative-button{
+.alternative-button {
     background-color: #ff7617;
 }
+
 .main-input {
     width: 100px;
     height: 25px;
