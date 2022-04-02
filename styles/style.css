@@ -16,6 +16,14 @@ body {
     background-color: aqua;
 }
 
+.green-text{
+    color: mediumseagreen;
+}
+
+.red-text{
+    color: mediumvioletred;
+}
+
 .alternative-button {
     background-color: #ff7617;
 }

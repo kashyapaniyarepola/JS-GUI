@@ -23,7 +23,7 @@
         </table>
     </div>
 </div>
-
+<h4 id="condition_check" class="red-text"> </h4>
 <div class="container" style="margin-top:8px;">
     <div class="row justify-content-md-center">
         <a href="criteria.html" class="col-md-2 btn btn-primary" style=" margin:4px" role="button" type="button">Back</a>
@@ -84,6 +84,10 @@
             const cr = ci / ri[criteria_amount-1]
             if(cr < 0.1){
                 $('#next_button').attr("class","col-md-2 btn btn-primary").attr("aria-disabled","false").attr("href",`criteriaweight.html?weights=${eigen_vector.map(function(each_element){return Number(each_element.toFixed(2))}).join('-')}`);
+                $('#condition_check').attr("class","green-text").text('Consistency Ratio value < 0.1 your judgements are consistent, and you can continue')
+            }else{
+                $('#next_button').attr("class","col-md-2 btn btn-primary disabled").attr("aria-disabled","true")
+                $('#condition_check').attr("class","red-text").text('Consistency Ratio value >0.1 your judgements are not consistent. Please assign your ranking values again')
             }
             // alert(`CR VALUE ${cr}`)
             // console.log('CR CALCULATED', cr, ci, ri[criteria_amount-1])
